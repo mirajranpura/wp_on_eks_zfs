@@ -1,5 +1,4 @@
 resources:
   - mysql-deployment.yaml
   - wordpress-deployment.yaml
-  - db-secret.yaml
   - alb-ingress.yaml  

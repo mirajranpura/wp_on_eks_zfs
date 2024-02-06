@@ -128,5 +128,25 @@ module "aurora" {
   tags = local.tags
 }
 
+output "db_host" {
+ description = "DB host endpoint"
+ value = "${module.aurora.cluster_endpoint}"
+}
+output "dbcredentials" {
+ description = "Reterive DB credentials"
+ value = "aws secretsmanager get-secret-value --secret-id '${module.aurora.cluster_master_user_secret[0].secret_arn}' --query SecretString | jq -r"
+}
 
+output "environment" {
+  description = " Export the username, password and host to create K8s secret"
+  value = <<EOF
+  export username=$(aws secretsmanager get-secret-value --secret-id '${module.aurora.cluster_master_user_secret[0].secret_arn}' --query SecretString | jq -r | jq -r '.username')
+  export password=$(aws secretsmanager get-secret-value --secret-id '${module.aurora.cluster_master_user_secret[0].secret_arn}' --query SecretString | jq -r | jq -r '.password')
+  export host=${module.aurora.cluster_endpoint}
+  EOF
+}
 
+output "k8s_secret" {
+  description = "Create K8s secret for wordpress deployment using follwing command"
+  value = "kubectl create secret generic mysql-pass --from-literal=db_user=$username --from-literal=db_pass=$password --from-literal=db_host=$host"
+}
