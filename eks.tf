@@ -12,7 +12,7 @@ module "eks" {
   create_cluster_security_group = true
   create_node_security_group    = true 
   authentication_mode           = "API_AND_CONFIG_MAP"
-#  enable_cluster_creator_admin_permissions = "true"
+  enable_cluster_creator_admin_permissions = "true"
 
   eks_managed_node_groups = {
     default = {
