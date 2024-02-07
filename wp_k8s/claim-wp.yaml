@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: fsx-pvc-wp
+  namespace: default
 spec:
   accessModes:
     - ReadWriteMany

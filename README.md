@@ -15,7 +15,7 @@ This is a poc for EKS cluster blueprints.
 
 1. terraform command line 
 ```
-   sudo yum install -y yum-utils;
+   sudo yum install -y yum-utils jq;
    sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
    sudo yum -y install terraform
    sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
@@ -28,11 +28,10 @@ This is a poc for EKS cluster blueprints.
 ```
    # Check if AWS CLI installed
    aws --version
-   env | grep REG
 
    # Export environment variable if not already 
-   export AWS_DEFAULT_REGION=us-west-2
-   export AWS_REGION=us-west-2
+   export AWS_DEFAULT_REGION=us-east-1
+   export AWS_REGION=us-east-1
 
    # Verify AWS credentials to deploy VPC, EKS, IAM and other resources 
     aws sts get-caller-identity

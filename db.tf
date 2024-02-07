@@ -143,10 +143,6 @@ output "environment" {
   export username=$(aws secretsmanager get-secret-value --secret-id '${module.aurora.cluster_master_user_secret[0].secret_arn}' --query SecretString | jq -r | jq -r '.username')
   export password=$(aws secretsmanager get-secret-value --secret-id '${module.aurora.cluster_master_user_secret[0].secret_arn}' --query SecretString | jq -r | jq -r '.password')
   export host=${module.aurora.cluster_endpoint}
+  kubectl create secret generic mysql-pass --from-literal=db_user=$username --from-literal=db_pass=$password --from-literal=db_host=$host
   EOF
-}
-
-output "k8s_secret" {
-  description = "Create K8s secret for wordpress deployment using follwing command"
-  value = "kubectl create secret generic mysql-pass --from-literal=db_user=$username --from-literal=db_pass=$password --from-literal=db_host=$host"
 }

@@ -7,7 +7,13 @@ resource "aws_fsx_openzfs_file_system" "wp" {
   throughput_capacity = 160
 }
 
-output "openfsx-file-system" {
+output "openfsx-volume" {
 	description = "FileSystem ID to be consumed with K8s resources"
         value  = "${aws_fsx_openzfs_file_system.wp.root_volume_id}"
 } 
+
+output "create-storage-class-fsx" {
+  value = <<EOF
+  sed 's/fsvol-XXXX/${aws_fsx_openzfs_file_system.wp.root_volume_id}/g' wp_k8s/sc.yaml > wp_k8s/storageclass.yaml
+  EOF 
+}
