@@ -1,6 +1,6 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 19.16"
+  version = "20.2.0"
 
   cluster_name                   = var.cluster_name
   cluster_version                = var.cluster_version
@@ -9,8 +9,9 @@ module "eks" {
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
-  create_cluster_security_group = false
-  create_node_security_group    = false
+  create_cluster_security_group = true
+  create_node_security_group    = true 
+  authentication_mode           = "API_AND_CONFIG_MAP"
 
   eks_managed_node_groups = {
     default = {
