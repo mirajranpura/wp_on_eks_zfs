@@ -42,8 +42,8 @@ This is a poc for EKS cluster blueprints.
 
 1. Clone the repo
 ```
-   git clone https://github.com/mirajranpura/eks_poc_terraform.git
-   cd eks_poc_terraform/
+   git clone https://github.com/mirajranpura/wp_on_eks_zfs.git
+   cd wp_on_eks_zfs/
 ```
 2.  In order to prepare the working directory for use with Terraform, the ```terraform init``` command performs Backend Initialization, Child Module Installation, and Plugin Installation.
 ```
